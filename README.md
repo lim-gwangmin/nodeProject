@@ -3,9 +3,7 @@
 * mongoose
 * node.js
 * node-schedule
-
-
-ejs
+* ejs
 
 DB 
 =============
