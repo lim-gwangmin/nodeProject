@@ -1,0 +1,85 @@
+<section class='section' id="section01">
+   <article class='notice_wrapper'>
+      <div class='colum_area'>
+         <div class='notice_header'>
+            <h2>순서</h2>
+         </div>
+         <ul class='notice_list'>
+            <% userList.forEach( user => { %>
+
+               <% if(target.seq === user.seq) { %>
+                <!-- 이번주 당번 -->
+                  <li class="target">
+                     <span class="number"><%= user.otherList %>.</span>
+                     <p class="comment"><%= user.name %></p>
+                     <span class="alert">이번주 당번</span>
+                  </li>
+
+               <% } else if(nextTarget.seq === user.seq) {%>
+               <!-- 다음주 당번 -->
+                  <li class="next_target">
+                     <span class="number"><%= user.otherList %>.</span>
+                     <p class="comment"><%= user.name %></p>
+                     <span class="alert">다음주 당번</span>
+                  </li>
+
+               <% } else {%>
+               <!-- 그 외 -->
+                  <li>
+                     <span class="number"><%= user.otherList %>.</span>
+                     <p class="comment"><%= user.name %></p>
+                  </li>
+               <% } %>
+               
+            <% }) %>
+         </ul>
+      </div>
+   </article>
+</section>
+<section class='section' id="section02">
+   <article class='evrynSwork_wrapper'>
+      <div class='colum_area'>
+         <div class='evrynSwork_header'>
+            <h2>모두의 일</h2>
+            <!-- <button class='btn_evrynSwork_list'>
+               <img src={pencil}/>
+            </button> -->
+         </div>
+         <ul class='check_list'>
+            <li>
+               개인 쓰레기통 스스로 비우기
+               <span>
+                  (금요일 필수!)
+               </span>
+            </li>
+            <li>
+               정수기,커피머신,싱크대 주변에 튄 물 닦기
+            </li>
+            <li>
+               마지막 퇴근 직원은 모든 문,에어컨,전등,노래 등 단속하기
+            </li>
+         </ul>
+      </div>
+   </article>
+   <article class='duty_wrapper'>
+      <div class='colum_area'>
+         <div class='duty_header'>
+            <h2>당번의 일</h2>
+            <!-- <button class='btn_duty_list'>
+               <img src={pencil}/>
+            </button> -->
+         </div>
+         <ul class='check_list col2'>
+            <li>설거지하기, 싱크대 배수망 비우기</li>
+            <li>대표님,팀장님 쓰레기통 비우기<span>(금)</span>
+            </li>
+            <li>커피 머신, 정수기 물 받침대 설거지하기 <span>(수,금)</span>
+            </li>
+            <li>음료수 냉장고 우측 상단의 불 끄기<span>(금)</span>
+            </li>
+            <li>일반, 음식물 쓰레기, 분리수거 정리 및 분리배출<span>(금, 모두 다같이!)</span>
+            </li>
+         </ul>
+      </div>
+   </article>
+</section>
