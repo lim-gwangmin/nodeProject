@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//create schema
+//user schema
 const UserListSchema = new Schema({
    seq: { 
       type: Number, 
@@ -20,7 +20,24 @@ const UserListSchema = new Schema({
    target: Boolean,
  });
 
+ //user schema
+const EveryWorksSchema = new Schema({
+   id: Number, 
+   content: String,
+   highlight: String
+ });
+
+ //user schema
+const TargetWorksSchema = new Schema({
+   id: Number, 
+   content: String,
+   highlight: String
+ });
+
+
 
 const Datas = mongoose.model("datas", UserListSchema);
+const EveryWorks = mongoose.model("everyWorks", EveryWorksSchema);
+const TargetWorks = mongoose.model("TargetWorks", TargetWorksSchema);
 
-module.exports = Datas;
+module.exports = { Datas, EveryWorks, TargetWorks };

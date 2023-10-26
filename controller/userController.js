@@ -1,4 +1,4 @@
-const Datas = require("../models/Users.js");
+const { Datas, EveryWorks, TargetWorks } = require("../models/Users.js");
 const schedule = require('node-schedule');
 
 // 다음 당번 순번 값
@@ -11,7 +11,6 @@ const nextTargetSeq = async target => {
 
 
 // 주 마다 월요일 09:00 AM에 함수를 호출
-// const weeklyTarget = schedule.scheduleJob('*/10 * * * * *', async () => {
 const weeklyTarget = schedule.scheduleJob({ dayOfWeek: 1, hour: 09, minute: 00 }, async () => {
    try {
       // Datas 모델의 문서 수를 세는 메서드
@@ -45,11 +44,15 @@ exports.getAllUsers = async (req, res) => {
    const targetSeq =  await nextTargetSeq(target);
    const nextTarget = await Datas.findOne({seq: targetSeq});
    const userList = await Datas.find({});
+   const everyWorks = await EveryWorks.find({});
+   const targetWorks = await TargetWorks.find({});
 
    res.render("index", {
       target,
       nextTarget,
       userList,
+      everyWorks,
+      targetWorks
   });
 
 };
