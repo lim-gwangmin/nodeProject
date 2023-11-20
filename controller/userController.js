@@ -1,6 +1,26 @@
 const { Datas, EveryWorks, TargetWorks } = require("../models/Users.js");
 const schedule = require('node-schedule');
+const FCM = require('fcm-node');
+const serverKey = 'AAAAgggD64o:APA91bHsscrzZne4hjPcShWZTvv_u-m-U5r4fxwY7JsOE-OT877YLi6bGYWdmyA2ZeY6L1VxbpY6CucpSuKiO4PZv_mLb4TNC30yCdclKmzW0HcawNtvTwCQxGDdBWax-Lv6ZF8R65ZK';
+const fcm = new FCM(serverKey);
 
+const message = {
+   to: '/topics/all',
+   priority: 'high',
+   notification: {
+     title: '웹 푸시 테스트 제목',
+     body: '웹 푸시 테스트 내용',
+   },
+ };
+
+const pushMessage = fcm.send(message, (err, response) => {
+
+   if (err) {
+      console.log(`Error: ${err}`);
+   } else {
+      console.log(`Response: ${response}`);
+   }
+});
 // 다음 당번 순번 값
 const nextTargetSeq = async target => {
    const totalCount = await Datas.countDocuments({});
@@ -11,7 +31,7 @@ const nextTargetSeq = async target => {
 
 
 // 주 마다 월요일 09:00 AM에 함수를 호출
-const weeklyTarget = schedule.scheduleJob({ dayOfWeek: 1, hour: 09, minute: 00 }, async () => {
+const weeklyTarget = schedule.scheduleJob({ dayOfWeek: 1, hour: 00, minute: 00 }, async () => {
    try {
       // Datas 모델의 문서 수를 세는 메서드
       const prevData = await Datas.findOne({ target: true });
@@ -26,6 +46,8 @@ const weeklyTarget = schedule.scheduleJob({ dayOfWeek: 1, hour: 09, minute: 00 }
       const targetSeq = await nextTargetSeq(prevData);
       const nextData = await Datas.findOne({ otherList: targetSeq });
  
+      pushMessage();
+
       if (nextData) {
         // 데이터를 찾았을 때
         nextData.target = !nextData.target;
@@ -38,6 +60,8 @@ const weeklyTarget = schedule.scheduleJob({ dayOfWeek: 1, hour: 09, minute: 00 }
       console.error('오류 발생:', err);
     }
 });
+
+
 
 exports.getAllUsers = async (req, res) => {
    const target = await Datas.findOne({target: true});

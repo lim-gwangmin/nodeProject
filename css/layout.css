@@ -4,6 +4,7 @@
    min-height: 100vh;
    background-color:#F6F8FC;
    padding-top: 15rem;
+   overflow:hidden;
 }
 .container {
    width:100%;

@@ -124,6 +124,7 @@
    margin-top:3rem;
 }
 #section02 > [class$='_wrapper'] > .colum_area {
+   position: relative;
    min-height: 18rem;
    padding: 3rem;
 }
@@ -140,6 +141,7 @@
    font-size:1.5rem;
    color:#333;
    margin-bottom: 1.5rem;
+   z-index:10;
 }
 #section02 .check_list > li > span {
    padding-left: .3rem;
@@ -153,6 +155,26 @@
    padding-right:1rem;
 }
 
+/* 삭제 */
+#trash {
+   position: fixed;
+   left:50%;
+   transform: translateX(-50%);
+   width: 10rem;
+   height: 10rem;
+   border-radius:100%;
+   background-color:#fff;
+}
+#trash > i {
+   position: absolute;
+   left:50%;
+   top:50%;
+   transform: translate(-50%, -50%);
+   font-size: 3rem;
+}
+.ui-droppable-active {
+   border: 1px solid #FF0000;
+}
 
 /* media query */
    /*  only desktop */
