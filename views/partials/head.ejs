@@ -9,49 +9,10 @@
    <link rel="stylesheet" href="/css/common.css">
    <link rel="stylesheet" href="/css/layout.css">
    <link rel="stylesheet" href="/css/main.css">
-   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
+   <link rel="stylesheet" href="/assets/iconFont/xeicon.min.css">
+   <script type="module">
+      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+      // const el = document.createElement('pwa-update');
+      // document.body.appendChild(el);
+   </script>
 </head>
-<script defer type="module">
-   import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js';
-   import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.4.0/firebase-messaging.js';
-
-   if ("serviceWorker" in navigator) {
-      navigator.serviceWorker
-         .register("/sw.js")
-         .then(function (registration) {
-            console.log("Service Worker registered with scope:", registration.scope);
-         })
-         .catch(function (err) {
-            console.log("Service Worker registration failed", err);
-         });
-      }
-
-
-   const firebaseConfig = {
-      apiKey: "AIzaSyBtvbqA28mbqZYZqINF6KUOhcrJfa3INUU",
-      authDomain: "codex-project-b4939.firebaseapp.com",
-      databaseURL: 'codex-project-b4939.firebaseio.com',
-      projectId: "codex-project-b4939",
-      storageBucket: "codex-project-b4939.appspot.com",
-      messagingSenderId: "558480223114",
-      appId: "1:558480223114:web:05d36364cbf0f8284c3673",
-      measurementId: "G-X1PJ1T37DE"
-   };
-   // Initialize Firebase
-   // BNbFWjGXKIAr-pefE7ihOKcGWa1N37z00RxRI9KXwWlbmcmOsBVLdcZUnl2cSPc7jncf7cKHdpyACUmq8hFrwKc
-
-   const app = initializeApp(firebaseConfig);
-   // Initialize Firebase Cloud Messaging and get a reference to the service
-   const messaging = getMessaging();
-   console.log(messaging,'messaging')
-
-   getToken(messaging).then( currentToken => {
-      console.log(currentToken, 'currentToken=====================')
-   });
-
-   onMessage(messaging, (payload) => {
-      console.log('Message received. ', payload);
-      // ...
-   });
- 
-</script>

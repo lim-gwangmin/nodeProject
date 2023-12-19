@@ -31,7 +31,8 @@ const EveryWorksSchema = new Schema({
 const TargetWorksSchema = new Schema({
    id: Number, 
    content: String,
-   highlight: String
+   highlight: String,
+   checked: Boolean
  });
 
 

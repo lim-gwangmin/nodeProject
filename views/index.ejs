@@ -1,3 +1,11 @@
+<!-- Javscript -->
+<!-- <script>
+   if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+         navigator.serviceWorker && navigator.serviceWorker.register("/sw.js");
+      });
+   }
+</script> -->
 <section class='section' id="section01">
    <article class='notice_wrapper'>
       <div class='colum_area'>
@@ -68,13 +76,30 @@
          <ul class='check_list col2'>
             <% targetWorks.forEach( work => { %>
                <li>
-                  <%= work.content %>
-                  <% if(work.highlight) { %>
-                     <span>(<%= work.highlight %>)</span>
-                  <% } %>
+                  <span class="custom_checkbox">
+                     <input type="checkbox" id="work_<%= work.id %>" value="<%= work.id %>" <%= work.checked ? 'checked': '' %> />
+                     <label for="work_<%= work.id %>"> 
+                        <%= work.content %> 
+                        <% if(work.highlight) { %>
+                           <span>(<%= work.highlight %>)</span>
+                        <% } %>
+                     </label>
+                  </span>
                </li>
             <% }) %>
          </ul>
       </div>
    </article>
 </section>
+<div class="modal modal_type01 alert modal_bg">
+   <div class="modal_container">
+      <div class="modal_body">
+         <p>체크하시겠습니까?</p>
+         <div class="btn_wrap">
+            <button class="btn style02 modal_close" type="buton">취소</button>
+            <button class="btn style01" onclick="everyWorksCheck();" type="button">확인</button>
+         </div>
+      </div>
+   </div>
+</div>
+<script src="/assets/js/everyWork.js"></script>

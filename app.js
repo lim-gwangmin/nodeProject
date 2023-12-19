@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const http = require("http");
@@ -5,14 +7,13 @@ const https = require("https");
 const fs = require("fs");
 
 const app = express();
-// const port = process.env.PORT;
-const port = 3000;
-
-
-require("dotenv").config();
+const port = process.env.PORT;
+// const port = 3000;
 
 const userController = require("./controller/userController");
 const expressLayouts = require('express-ejs-layouts');
+const { TargetWorks } = require("./models/Users.js");
+const { LoggerLevel } = require("mongodb");
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -25,7 +26,7 @@ app.use(expressLayouts);
 //    cert: fs.readFileSync('/etc/letsencrypt/live/life.codexbridge.co.kr/cert.pem')
 // };
 
-// http.createServer(app).listen(port);
+// // http.createServer(app).listen(port);
 // https.createServer(options, app).listen(443);
 /**
  * !정적파일 로드
@@ -57,6 +58,29 @@ mongoose
 app.get("/", userController.getAllUsers);
 
 
+app.put("/api/checked/:id", async (req, res) => {
+   try {
+      const { params, body } = req;
+      const target = await TargetWorks.findOne(params);
+      
+      if (target) {
+         target.checked = !target.checked;
+
+         await target.save();
+
+         res
+         .status(200)
+         .json({message: '변경되었습니다.', result: true, data: target});
+      } else {
+         res
+         .status(404)
+         .send({message: '404!!', result: false});
+      };
+
+   } catch ( err ) {
+      console.log(err)
+   }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on  ${port}`);
